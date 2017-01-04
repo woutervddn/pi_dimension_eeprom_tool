@@ -4,7 +4,7 @@ installSoftware=false
 downloadStratasys=false
 deployWeb=true
 
-StartDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
 php5Dir=$(which php)
 
@@ -44,7 +44,6 @@ if [ "$deployWeb" = true ] ; then
     sudo rm -rf /var/www/html/*
 
     #copying the web folder to /var/www/html/
-    sudo cp "$StartDIR/web/*" /var/www/html/
-
+    sudo cp -r ${startDIR}/web/* /var/www/html/
 
 fi
