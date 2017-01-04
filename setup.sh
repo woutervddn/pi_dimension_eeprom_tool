@@ -2,7 +2,7 @@
 
 installSoftware=false
 downloadStratasys=false
-deployWeb=false
+deployWeb=true
 
 StartDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
