@@ -1,9 +1,10 @@
 #!/bin/bash
 
-installSoftware=true
-downloadStratasys=true
-deployWeb=true
+installSoftware=false
+downloadStratasys=false
+deployWeb=false
 
+StartDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
 php5Dir=$(which php)
 
@@ -38,16 +39,12 @@ if [ "$downloadStratasys" = true ] ; then
 fi
 
 if [ "$deployWeb" = true ] ; then
-    echo "deploying webdir to /var/www/html"
-    if [ -d "/tmp/eepromTool" ]; then rm -Rf /tmp/eepromTool; fi
-    mkdir /tmp/eepromTool
-    cd /tmp/eepromTool
-    wget https://github.com/bvanheu/stratasys/archive/master.zip
-    unzip master.zip
-    rm master.zip
+    echo "deploying webdir to /var/www/html/"
+    #clearing the html folder
+    sudo rm -rf /var/www/html/*
 
-    if [ -d "/opt/eepromTool" ]; then sudo rm -Rf /opt/eepromTool; fi
-    sudo mkdir /opt/eepromTool/
-    sudo cp -r /tmp/eepromTool/* /opt/eepromTool/
-    sudo chmod 775 -R /opt/eepromTool/
+    #copying the web folder to /var/www/html/
+    sudo cp "$StartDIR/web/*" /var/www/html/
+
+
 fi
