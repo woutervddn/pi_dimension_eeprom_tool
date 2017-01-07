@@ -1,8 +1,8 @@
 #!/bin/bash
 
-installSoftware=false
-downloadStratasys=false
-deployWeb=false
+installSoftware=true
+downloadStratasys=true
+deployWeb=true
 installPyCrypto=true
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
