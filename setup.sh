@@ -78,5 +78,5 @@ if [ "$allowRunAsRoot" = true ] ; then
     # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/reset-eeprom.sh
     # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/unload-kernel-mods.sh
     # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/update-eeprom.sh
-    sudo chmod
+    sudo chmod 0440 /etc/sudoers.d/999_www-data-nopasswd
 fi
