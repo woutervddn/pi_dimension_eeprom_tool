@@ -2,7 +2,8 @@
 
 installSoftware=false
 downloadStratasys=false
-deployWeb=true
+deployWeb=false
+installPyCrypto=true
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
@@ -45,5 +46,12 @@ if [ "$deployWeb" = true ] ; then
 
     #copying the web folder to /var/www/html/
     sudo cp -r ${startDIR}/web/* /var/www/html/
+
+fi
+
+if [ "$installPyCrypto" = true ] ; then
+    echo "installing Py Crypto"
+    apt-get install autoconf g++ python2.7-dev
+    pip install pycrypto
 
 fi

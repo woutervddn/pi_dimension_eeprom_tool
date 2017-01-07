@@ -58,13 +58,13 @@ do
 			# hexdump -C $tmpDir"/"$binaryName
 
 			# View the eeprom settings
-			usedScript="/home/pi/stratasys-master/stratasys-cli.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cli.py"
 			#echo "  - used script: $usedScript"
 
 			command="eeprom"
 			#echo "  - command: $command"
 
-			printerType="prodigy"
+			printerType="fox2"
 			#echo "  - Printer Type: $printerType"
 
 			#echo "  - Used EEPROM UID: $revID"
@@ -82,7 +82,7 @@ do
 			#$eepromInfoCommand
 
 			# Grab recreate info
-			usedScript="/home/pi/stratasys-master/stratasys-cartridge.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cartridge.py"
 
 			#echo "hexdump of output file: "
 			#echo ""
@@ -94,7 +94,7 @@ do
 
 			#echo "New Data:"
 			#echo
-			usedScript="/home/pi/stratasys-master/stratasys-cli.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cli.py"
 			eepromInfoCommand="$usedScript $command -t $printerType -e $revID -i $tmpDir/output.bin"
 			$eepromInfoCommand
 			#echo
