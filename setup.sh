@@ -4,6 +4,7 @@ installSoftware=true
 downloadStratasys=true
 deployWeb=true
 installPyCrypto=true
+scheduleReboots=true
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
@@ -53,5 +54,11 @@ if [ "$installPyCrypto" = true ] ; then
     echo "installing Py Crypto"
     apt-get install autoconf g++ python2.7-dev
     pip install pycrypto
+
+fi
+
+if [ "$scheduleReboots" = true ] ; then
+    echo "scheduleing Reboots"
+    crontab -l | { cat; echo "0 6 * * * reboot"; } | crontab -
 
 fi
