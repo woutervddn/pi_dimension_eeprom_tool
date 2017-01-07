@@ -22,7 +22,7 @@
         <?php
         // outputs the username that owns the running php/httpd process
         // (on a system with the "whoami" executable in the path)
-        echo nl2br(shell_exec(dirname(__FILE__) . '/scripts/update-eeprom.sh'));
+        echo nl2br(shell_exec('sudo ' . dirname(__FILE__) . '/scripts/update-eeprom.sh'));
         ?>
       </div>
     </div>
