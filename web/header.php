@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Makerspace Dimension EEPROM Reset</title>
+    <title>Cr3do Fortus EEPROM Reset</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -29,13 +29,13 @@
       <div class="row">
         <div class="col-md-12">
           <div class="well">
-            <h1><a href="index.php">Makerspace EEPROM Writer</a></h1>
+            <h1><a href="index.php">Cr3do EEPROM Writer</a></h1>
 	    <p>This tool is made to regenerate Stratasys Cartridge EEPROMS.</p>
 		<hr/>
 	    <p>Usage is simple and straightforward. First click the <strong>Read EEPROM</strong> button in order to get a readout from the currently place eeprom. If the suggested new information is correct, proceed by clicking <strong>Regenerate EEPROM</strong>.</p>
 	    <p>If all worked correctly you can now press <strong>read EEPROM</strong> again to verify that the eeprom has been regenerated.</p>
 		<hr/>
-		<p><span style="text-align: right;">Project Author: Wouter Vandenneucker - 2016 - for Makerspace PXL-Uhasselt</span></p>
+		<p><span style="text-align: right;">Project Author: Wouter Vandenneucker - 2016 - for Makerspace PXL-Uhasselt &amp; Cr3do</span></p>
           </div>
         </div>
       </div>

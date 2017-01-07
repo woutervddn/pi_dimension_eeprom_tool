@@ -6,7 +6,8 @@
 #	exit 1
 #fi
 
-quantity=56.3
+# quantity=56.3 # Prodigy standard quantity
+quantity=92.3 # Fox2 standard quantity
 W1_DIR="/sys/bus/w1/devices/w1_bus_master1"
 
 # Load kernel mods
