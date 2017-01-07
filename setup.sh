@@ -5,6 +5,7 @@ downloadStratasys=true
 deployWeb=true
 installPyCrypto=true
 scheduleReboots=true
+allowRunAsRoot=true
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
@@ -61,4 +62,21 @@ if [ "$scheduleReboots" = true ] ; then
     echo "scheduleing Reboots"
     crontab -l | { cat; echo "0 6 * * * reboot"; } | crontab -
 
+fi
+
+if [ "$allowRunAsRoot" = true ] ; then
+    echo "Allowing www-data to run certain commands as root..."
+    sudo touch /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    # www-data ALL=(ALL) NOPASSWD: /sbin/modprobe
+    # www-data ALL=(ALL) NOPASSWD: /sbin/rmmod
+    # www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cli.py
+    # www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cartridge.py
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/custom-eeprom.sh
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/get-eeprom-info.sh
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/load-kernel-mods.sh
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/reset-eeprom.sh
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/unload-kernel-mods.sh
+    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/update-eeprom.sh
+    sudo chmod
 fi
