@@ -10,7 +10,7 @@ quantity=56.3
 W1_DIR="/sys/bus/w1/devices/w1_bus_master1"
 
 # Load kernel mods
-/var/www/scripts/load-kernel-mods.sh
+/var/www/html/scripts/load-kernel-mods.sh
 
 
 # Listen if directory exists every 5 seconds
@@ -63,13 +63,13 @@ do
 			#hexdump -C $tmpDir"/"$binaryName
 
 			# View the eeprom settings
-			usedScript="/home/pi/stratasys-master/stratasys-cli.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cli.py"
 			#echo "  - used script: $usedScript"
 
 			command="eeprom"
 			#echo "  - command: $command"
 
-			printerType="prodigy"
+			printerType="fox2"
 			#echo "  - Printer Type: $printerType"
 
 			#echo "  - Used EEPROM UID: $revID"
@@ -87,7 +87,7 @@ do
 			#$eepromInfoCommand
 
 			# Grab recreate info
-			usedScript="/home/pi/stratasys-master/stratasys-cartridge.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cartridge.py"
 
 			#echo "hexdump of output file: "
 			#echo ""
@@ -99,7 +99,7 @@ do
 
 			echo "New Data:"
 			echo
-			usedScript="/home/pi/stratasys-master/stratasys-cli.py"
+			usedScript="/opt/eepromTool/stratasys-master/stratasys-cli.py"
 			eepromInfoCommand="$usedScript $command -t $printerType -e $revID -i $tmpDir/output.bin"
 			$eepromInfoCommand
 			echo
@@ -118,7 +118,7 @@ do
 
 
 			#Unload kernel mods
-			/var/www/scripts/unload-kernel-mods.sh
+			/var/www/html/scripts/unload-kernel-mods.sh
 
 			echo "Exiting. . ."
 			#exit before wait (development)
