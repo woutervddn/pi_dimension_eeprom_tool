@@ -66,17 +66,18 @@ fi
 
 if [ "$allowRunAsRoot" = true ] ; then
     echo "Allowing www-data to run certain commands as root..."
+    sudo rm /etc/sudoers.d/999_www-data-nopasswd
     sudo touch /etc/sudoers.d/999_www-data-nopasswd
     echo "www-data ALL=(ALL) NOPASSWD: /usr/bin/whoami" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
-    # www-data ALL=(ALL) NOPASSWD: /sbin/modprobe
-    # www-data ALL=(ALL) NOPASSWD: /sbin/rmmod
-    # www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cli.py
-    # www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cartridge.py
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/custom-eeprom.sh
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/get-eeprom-info.sh
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/load-kernel-mods.sh
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/reset-eeprom.sh
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/unload-kernel-mods.sh
-    # www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/update-eeprom.sh
+    echo "www-data ALL=(ALL) NOPASSWD: /sbin/modprobe" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /sbin/rmmod" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cli.py" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /opt/eepromTool/stratasys-master/stratasys-cartridge.py" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/custom-eeprom.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/get-eeprom-info.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/load-kernel-mods.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/reset-eeprom.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/unload-kernel-mods.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
+    echo "www-data ALL=(ALL) NOPASSWD: /var/www/html/scripts/update-eeprom.sh" | sudo tee -a /etc/sudoers.d/999_www-data-nopasswd
     sudo chmod 0440 /etc/sudoers.d/999_www-data-nopasswd
 fi
