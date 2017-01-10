@@ -159,7 +159,7 @@ if [ "$setupWifiHotspot" = true ] ; then
     sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
     echo 'interface=wlan0      # Use interface wlan0  ' > /etc/dnsmasq.conf
     echo 'listen-address=172.24.1.1 # Explicitly specify the address to listen on  ' >> /etc/dnsmasq.conf
-    echo 'bind-interfaces      # Bind to the interface to make sure we aren't sending things elsewhere  ' >> /etc/dnsmasq.conf
+    echo 'bind-interfaces      # Bind to the interface to make sure we arent sending things elsewhere  ' >> /etc/dnsmasq.conf
     echo 'server=8.8.8.8       # Forward DNS requests to Google DNS  ' >> /etc/hostapd/hostapd.conf
     echo 'domain-needed        # Dont forward short names  ' >> /etc/hostapd/hostapd.conf
     echo 'bogus-priv           # Never forward addresses in the non-routed address spaces.  ' >> /etc/hostapd/hostapd.conf
