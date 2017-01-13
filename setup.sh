@@ -1,13 +1,13 @@
 #!/bin/bash
 
-installSoftware=true
-downloadStratasys=true
-deployWeb=true
-installPyCrypto=true
-scheduleReboots=true
-allowRunAsRoot=true
+installSoftware=false
+downloadStratasys=false
+deployWeb=false
+installPyCrypto=false
+scheduleReboots=false
+allowRunAsRoot=false
 setBootConfig=true
-setupWifiHotspot=true
+setupWifiHotspot=false
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
@@ -33,9 +33,10 @@ if [ "$downloadStratasys" = true ] ; then
     if [ -d "/tmp/eepromTool" ]; then rm -Rf /tmp/eepromTool; fi
     mkdir /tmp/eepromTool
     cd /tmp/eepromTool
-    wget https://github.com/bvanheu/stratasys/archive/master.zip
-    unzip master.zip
-    rm master.zip
+    git clone https://github.com/bvanheu/stratasys.git
+    # wget https://github.com/bvanheu/stratasys/archive/master.zip
+    # unzip master.zip
+    # rm master.zip
 
     if [ -d "/opt/eepromTool" ]; then sudo rm -Rf /opt/eepromTool; fi
     sudo mkdir /opt/eepromTool/
@@ -84,7 +85,7 @@ if [ "$allowRunAsRoot" = true ] ; then
     sudo chmod 0440 /etc/sudoers.d/999_www-data-nopasswd
 fi
 
-if [ "$setBootConfig=" = true ] ; then
+if [ "$setBootConfig" = true ] ; then
     echo "Setting up the boot config"
     # Remove old line
     sudo sed -i.bak '/dtoverlay=w1-gpio/d' /boot/config.txt
