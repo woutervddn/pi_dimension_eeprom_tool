@@ -1,13 +1,13 @@
 #!/bin/bash
 
-installSoftware=false
-downloadStratasys=false
-deployWeb=false
-installPyCrypto=false
-scheduleReboots=false
-allowRunAsRoot=false
+installSoftware=true
+downloadStratasys=true
+deployWeb=true
+installPyCrypto=true
+scheduleReboots=true
+allowRunAsRoot=true
 setBootConfig=true
-setupWifiHotspot=false
+setupWifiHotspot=true
 
 startDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 apache2Dir=$(which apache2)
@@ -33,10 +33,10 @@ if [ "$downloadStratasys" = true ] ; then
     if [ -d "/tmp/eepromTool" ]; then rm -Rf /tmp/eepromTool; fi
     mkdir /tmp/eepromTool
     cd /tmp/eepromTool
-    git clone https://github.com/bvanheu/stratasys.git
-    # wget https://github.com/bvanheu/stratasys/archive/master.zip
-    # unzip master.zip
-    # rm master.zip
+    # git clone https://github.com/bvanheu/stratasys.git
+    wget https://github.com/bvanheu/stratasys/archive/master.zip
+    unzip master.zip
+    rm master.zip
 
     if [ -d "/opt/eepromTool" ]; then sudo rm -Rf /opt/eepromTool; fi
     sudo mkdir /opt/eepromTool/
