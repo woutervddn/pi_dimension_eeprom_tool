@@ -121,7 +121,11 @@ do
 			echo "Writing to EEPROM. . ."
 			/bin/dd if=$tmpDir/output.bin of=$dir"eeprom"
 
-			echo "writing Successful, cleaning up. . ."
+			if [ "$?" -ne 0 ]; then
+                                echo "Something went wrong during the writing of the eeprom; no idea what though"
+                        else
+                                echo "writing Successful, cleaning up. . ."
+                        fi
 
 
 			#Cleanup
