@@ -28,18 +28,14 @@ do
 			#echo "Directory exists"
 			missingEeprom=false
 
-			#echo "Found EEPROM: $dir"
-			{ # try
-				# echo the EEPROM ID
-				eepromData=$(xxd -p $dir"eeprom")
-			} || { # catch
-			    # save log for exception
-					echo "you are not looking for $dir"
-					echo "it must be a previously inserted eeprom"
-					echo "moving on to next folder"
-					echo "--------"
-					continue
-			}
+			eepromData=$(xxd -p $dir"eeprom")
+			if [ "$?" -ne 0 ]; then
+				echo "you are not looking for $dir"
+				echo "it must be a previously inserted eeprom"
+				echo "moving on to next folder"
+				echo "--------"
+				continue
+			fi
 
 			#echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
@@ -121,7 +117,11 @@ do
 			echo "Writing to EEPROM. . ."
 			/bin/dd if=$tmpDir/output.bin of=$dir"eeprom"
 
-			echo "writing Successful, cleaning up. . ."
+			if [ "$?" -ne 0 ]; then
+                                echo "Something went wrong during the writing of the eeprom; no idea what though"
+                        else
+                                echo "writing Successful, cleaning up. . ."
+                        fi
 
 
 			#Cleanup

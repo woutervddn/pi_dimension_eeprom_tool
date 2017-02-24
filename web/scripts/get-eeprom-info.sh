@@ -32,20 +32,17 @@ do
 			missingEeprom=false
 
 			echo "Found EEPROM: $dir"
-			{ # try
-				# echo the EEPROM ID
-				eepromData=$(xxd -p $dir"eeprom")
-			} || { # catch
-			    # save log for exception
-					echo "you are not looking for $dir"
-					echo "it must be a previously inserted eeprom"
-					echo "moving on to next folder"
-					echo "--------"
-					continue
-			}
+			eepromData=$(xxd -p $dir"eeprom")
+			if [ "$?" -ne 0 ]; then
+				echo "you are not looking for $dir"
+				echo "it must be a previously inserted eeprom"
+				echo "moving on to next folder"
+				echo "--------"
+				continue
+			fi
 
 			# echo the EEPROM ID
-			eepromData=$(xxd -p $dir"id")
+			eepromID=$(xxd -p $dir"id")
 			echo "  - EEPROM ID: $eepromID"
 
 			#Make a temp dir, remove it if it already exists

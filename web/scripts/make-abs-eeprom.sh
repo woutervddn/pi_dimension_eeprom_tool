@@ -29,18 +29,14 @@ do
 			#echo "Directory exists"
 			missingEeprom=false
 
-			#echo "Found EEPROM: $dir"
-			{ # try
-				# echo the EEPROM ID
-				eepromData=$(xxd -p $dir"eeprom")
-			} || { # catch
-			    # save log for exception
-					echo "you are not looking for $dir"
-					echo "it must be a previously inserted eeprom"
-					echo "moving on to next folder"
-					echo "--------"
-					continue
-			}
+			eepromData=$(xxd -p $dir"eeprom")
+			if [ "$?" -ne 0 ]; then
+				echo "you are not looking for $dir"
+				echo "it must be a previously inserted eeprom"
+				echo "moving on to next folder"
+				echo "--------"
+				continue
+			fi
 
 			#echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
@@ -71,8 +67,8 @@ do
 			cp $dir"eeprom" $tmpDir"/"$binaryName
 
 			# View the binary contents
-			# echo "  - Binary Content: "
-			#hexdump -C $tmpDir"/"$binaryName
+			echo "  - Binary Content: "
+			hexdump -C $tmpDir"/"$binaryName
 
 			# View the eeprom settings
 			usedScript="/opt/eepromTool/stratasys-master/stratasys-cli.py"
@@ -114,7 +110,7 @@ do
 
 			$usedScript eeprom -t $printerType -e $revID --serial-number $serialNumber.0 --material-name ABS-M30 --manufacturing-lot 9999 --manufacturing-date "2017-01-01 01:01:01" --use-date "2017-01-01 01:01:01" --initial-material $quantity --current-material $quantity --key-fragment 4141414141414141 --version 1 --signature STRATASYS -o $tmpDir/output.bin
 
-			#hexdump -C $tmpDir/output.bin
+			hexdump -C $tmpDir/output.bin
 
 
 			echo ""
@@ -131,8 +127,11 @@ do
 
 			echo "Writing to EEPROM. . ."
 			/bin/dd if=$tmpDir/output.bin of=$dir"eeprom"
-
-			echo "writing Successful, cleaning up. . ."
+			if [ "$?" -ne 0 ]; then
+				echo "Something went wrong during the writing of the eeprom; no idea what though"
+			else
+				echo "writing Successful, cleaning up. . ."
+			fi
 
 
 			#Cleanup
