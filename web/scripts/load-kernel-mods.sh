@@ -3,14 +3,14 @@
 
 
 # Check if w1-gpio is loaded
-sudo /sbin/modinfo w1-gpio
+sudo /sbin/modinfo w1-gpio >> /dev/null 2>&1
 if [ "$?" -ne 0 ]; then
   #Setup the kernel modules
   /sbin/modprobe w1-gpio gpiopin=18
   if [ "$?" -ne 0 ]; then echo "Failed to load w1-gpio"; exit 1; fi
 fi
 
-sudo /sbin/modinfo w1-ds2433
+sudo /sbin/modinfo w1-ds2433 >> /dev/null 2>&1
 if [ "$?" -ne 0 ]; then
   /sbin/modprobe w1-ds2433
   if [ "$?" -ne 0 ]; then echo "Failed to load w1-ds2433"; exit 1; fi

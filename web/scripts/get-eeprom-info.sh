@@ -45,7 +45,7 @@ do
 			}
 
 			# echo the EEPROM ID
-			eepromID=$(xxd -p $dir"id")
+			eepromData=$(xxd -p $dir"eeprom")
 			echo "  - EEPROM ID: $eepromID"
 
 			#Make a temp dir, remove it if it already exists
