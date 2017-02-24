@@ -133,7 +133,7 @@ do
 			rm -rf $tmpDir
 
 			#Unload kernel modules
-			/var/www/html/scripts/unload-kernel-mods.sh
+			# /var/www/html/scripts/unload-kernel-mods.sh
 
 			#exit before wait (development)
 			exit 1

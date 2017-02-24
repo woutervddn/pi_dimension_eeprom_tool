@@ -128,7 +128,7 @@ do
 
 
 			#Unload kernel mods
-			/var/www/html/scripts/unload-kernel-mods.sh
+			# /var/www/html/scripts/unload-kernel-mods.sh
 
 			echo "Exiting. . ."
 			#exit before wait (development)
