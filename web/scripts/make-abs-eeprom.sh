@@ -30,6 +30,17 @@ do
 			missingEeprom=false
 
 			#echo "Found EEPROM: $dir"
+			{ # try
+				# echo the EEPROM ID
+				eepromID=$(xxd -p $dir"id")
+			} || { # catch
+			    # save log for exception
+					echo "you are not looking for $dir"
+					echo "it must be a previously inserted eeprom"
+					echo "moving on to next folder"
+					echo "--------"
+					continue
+			}
 
 			#echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
@@ -92,8 +103,16 @@ do
 
 			#echo "hexdump of output file: "
 			#echo ""
+			if [ ! -f ./serial.number ]; then
+			    echo "No serialnumberfile found!"
+					touch ./serial.number
+					echo "900000000" > serial.number
+			fi
+			typeset -i serialNumber=$(cat serial.number)
+			(( serialNumber++ ))
+			echo $serialNumber > serial.number
 
-			$usedScript eeprom -t $printerType -e $revID --serial-number 900000000.0 --material-name ABS-M30 --manufacturing-lot 9999 --manufacturing-date "2017-01-01 01:01:01" --use-date "2017-01-01 01:01:01" --initial-material $quantity --current-material $quantity --key-fragment 4141414141414141 --version 1 --signature STRATASYS -o $tmpDir/output.bin
+			$usedScript eeprom -t $printerType -e $revID --serial-number $serialNumber.0 --material-name ABS-M30 --manufacturing-lot 9999 --manufacturing-date "2017-01-01 01:01:01" --use-date "2017-01-01 01:01:01" --initial-material $quantity --current-material $quantity --key-fragment 4141414141414141 --version 1 --signature STRATASYS -o $tmpDir/output.bin
 
 			#hexdump -C $tmpDir/output.bin
 

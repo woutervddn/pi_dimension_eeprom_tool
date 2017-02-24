@@ -23,10 +23,26 @@ do
 	for dir in $dirs
 	do
 		if [ -d $dir ]; then
-			echo "Directory exists"
+			(( itterationCount++ ))
+			if [ $itterationCount -gt 1 ]; then
+				echo "Another eeprom directory exists"
+			else
+        echo "An eeprom directory exists"
+      fi
 			missingEeprom=false
 
 			echo "Found EEPROM: $dir"
+			{ # try
+				# echo the EEPROM ID
+				eepromID=$(xxd -p $dir"id")
+			} || { # catch
+			    # save log for exception
+					echo "you are not looking for $dir"
+					echo "it must be a previously inserted eeprom"
+					echo "moving on to next folder"
+					echo "--------"
+					continue
+			}
 
 			# echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
