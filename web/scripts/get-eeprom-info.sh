@@ -34,7 +34,7 @@ do
 			echo "Found EEPROM: $dir"
 			{ # try
 				# echo the EEPROM ID
-				eepromID=$(xxd -p $dir"eeprom")
+				eepromData=$(xxd -p $dir"eeprom")
 			} || { # catch
 			    # save log for exception
 					echo "you are not looking for $dir"
@@ -45,7 +45,7 @@ do
 			}
 
 			# echo the EEPROM ID
-			eepromData=$(xxd -p $dir"eeprom")
+			eepromData=$(xxd -p $dir"id")
 			echo "  - EEPROM ID: $eepromID"
 
 			#Make a temp dir, remove it if it already exists
