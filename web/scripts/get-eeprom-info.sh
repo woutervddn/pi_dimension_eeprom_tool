@@ -34,7 +34,7 @@ do
 			echo "Found EEPROM: $dir"
 			{ # try
 				# echo the EEPROM ID
-				eepromID=$(xxd -p $dir"id")
+				eepromID=$(xxd -p $dir"eeprom")
 			} || { # catch
 			    # save log for exception
 					echo "you are not looking for $dir"
