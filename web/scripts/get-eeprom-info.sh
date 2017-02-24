@@ -18,6 +18,7 @@ do
 	#ls $W1_DIR
 
 	missingEeprom=true
+	itterationCount=0
 	#Loop through matching eeprom folders
 	dirs=$W1_DIR/23-*/
 	for dir in $dirs
@@ -27,19 +28,33 @@ do
 			if [ $itterationCount -gt 1 ]; then
 				echo "Another eeprom directory exists"
 			else
-        echo "An eeprom directory exists"
-      fi
+			        echo "An eeprom directory exists"
+		  	fi
 			missingEeprom=false
 
 			echo "Found EEPROM: $dir"
-			eepromData=$(xxd -p $dir"eeprom")
+			xxd -p $dir"eeprom" > /tmp/tmpDataFile
+
+
+			echo "reading data"
+			cat /tmp/tmpDataFile
+
 			if [ "$?" -ne 0 ]; then
 				echo "you are not looking for $dir"
 				echo "it must be a previously inserted eeprom"
 				echo "moving on to next folder"
 				echo "--------"
-				continue
+				break
 			fi
+
+			legitFile=0
+			cmp --silent removedeepromhex /tmp/tmpDataFile || legitFile=1
+			echo "legitFile: $legitFile"
+
+			if [$legitFile -ne 0]; then
+				break
+			fi
+
 
 			# echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
