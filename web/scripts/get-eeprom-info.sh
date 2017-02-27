@@ -32,9 +32,10 @@ do
 		  	fi
 			missingEeprom=false
 
+
+			rm /tmp/tmpDataFile
 			echo "Found EEPROM: $dir"
 			xxd -p $dir"eeprom" > /tmp/tmpDataFile
-
 
 			echo "reading data"
 			cat /tmp/tmpDataFile
