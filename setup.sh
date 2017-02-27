@@ -50,7 +50,11 @@ if [ "$deployWeb" = true ] ; then
     sudo rm -rf /var/www/html/*
 
     #copying the web folder to /var/www/html/
-    sudo cp -r ${startDIR}/web/* /var/www/html/
+    #sudo cp -r ${startDIR}/web/* /var/www/html/
+
+    #make a simlink
+    sudo ln -s ${startDIR}/web/ /var/www/html/
+
 
 fi
 
