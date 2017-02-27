@@ -26,18 +26,38 @@ do
 	for dir in $dirs
 	do
 		if [ -d $dir ]; then
-			#echo "Directory exists"
+			(( itterationCount++ ))
+			if [ $itterationCount -gt 1 ]; then
+				echo "Another eeprom directory exists"
+			else
+			  echo "An eeprom directory exists"
+		  	fi
 			missingEeprom=false
 
-			eepromData=$(xxd -p $dir"eeprom")
+
+			rm /tmp/tmpDataFile
+			#echo "Found EEPROM: $dir"
+			#echo "xxd -p $dir"eeprom" > /tmp/tmpDataFile"
+
+			xxd -p $dir"eeprom" > /tmp/tmpDataFile
+
 			if [ "$?" -ne 0 ]; then
-				echo "you are not looking for $dir"
-				echo "it must be a previously inserted eeprom"
-				echo "moving on to next folder"
-				echo "--------"
+				#echo ">>> Input output error"
 				continue
+				exit
+			#else
+				#echo ">>> Reading data"
 			fi
 
+			legitFile=0
+			cmp --silent removedeepromhex /tmp/tmpDataFile || legitFile=1
+			echo "legitFile: $legitFile"
+
+			if [ "$legitFile" -eq 0 ]; then
+				#echo ">>> Blank file"
+				continue
+				exit
+			fi
 			#echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
 			#echo "  - EEPROM ID: $eepromID"
@@ -105,7 +125,7 @@ do
 					echo "900000000" > serial.number
 			fi
 			typeset -i serialNumber=$(cat serial.number)
-			(( serialNumber++ ))
+			((serialNumber+=10000))
 			echo $serialNumber > serial.number
 
 			$usedScript eeprom -t $printerType -e $revID --serial-number $serialNumber.0 --material-name ABS-M30 --manufacturing-lot 9999 --manufacturing-date "2017-01-01 01:01:01" --use-date "2017-01-01 01:01:01" --initial-material $quantity --current-material $quantity --key-fragment 4141414141414141 --version 1 --signature STRATASYS -o $tmpDir/output.bin

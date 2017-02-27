@@ -29,7 +29,7 @@ do
 			if [ $itterationCount -gt 1 ]; then
 				echo "Another eeprom directory exists"
 			else
-			        echo "An eeprom directory exists"
+			  echo "An eeprom directory exists"
 		  	fi
 			missingEeprom=false
 
@@ -42,15 +42,10 @@ do
 
 			if [ "$?" -ne 0 ]; then
 				#echo ">>> Input output error"
-				#echo "You are not looking for $dir"
-				#echo "it must be a previously inserted eeprom"
-				#echo "moving on to next folder"
-				#echo "--------"
 				continue
 				exit
 			#else
 				#echo ">>> Reading data"
-				# cat /tmp/tmpDataFile
 			fi
 
 			legitFile=0
