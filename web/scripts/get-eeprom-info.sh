@@ -21,6 +21,7 @@ do
 	itterationCount=0
 	#Loop through matching eeprom folders
 	dirs=$W1_DIR/23-*/
+	echo $dirs
 	for dir in $dirs
 	do
 		if [ -d $dir ]; then
@@ -34,32 +35,41 @@ do
 
 
 			rm /tmp/tmpDataFile
-			echo "Found EEPROM: $dir"
+			#echo "Found EEPROM: $dir"
+			#echo "xxd -p $dir"eeprom" > /tmp/tmpDataFile"
+
 			xxd -p $dir"eeprom" > /tmp/tmpDataFile
 
-			echo "reading data"
-			cat /tmp/tmpDataFile
-
 			if [ "$?" -ne 0 ]; then
-				echo "you are not looking for $dir"
-				echo "it must be a previously inserted eeprom"
-				echo "moving on to next folder"
-				echo "--------"
-				break
+				#echo ">>> Input output error"
+				#echo "You are not looking for $dir"
+				#echo "it must be a previously inserted eeprom"
+				#echo "moving on to next folder"
+				#echo "--------"
+				continue
+				exit
+			#else
+				#echo ">>> Reading data"
+				# cat /tmp/tmpDataFile
 			fi
 
 			legitFile=0
 			cmp --silent removedeepromhex /tmp/tmpDataFile || legitFile=1
 			echo "legitFile: $legitFile"
 
-			if [$legitFile -ne 0]; then
-				break
+			if [ "$legitFile" -eq 0 ]; then
+				#echo ">>> Blank file"
+				continue
+				exit
 			fi
 
 
 			# echo the EEPROM ID
 			eepromID=$(xxd -p $dir"id")
 			echo "  - EEPROM ID: $eepromID"
+
+
+			echo "success"
 
 			#Make a temp dir, remove it if it already exists
 			tmpDir="/tmp/eepromWriter"
